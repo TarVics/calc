@@ -1,0 +1,251 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #7799c3;
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    width: 500px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 5px;
+    font-size: 1.8rem;
+
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+
+    border-radius: 10px;
+
+    -webkit-box-shadow:
+      0 10px 6px rgba(0,0,0,0.16),
+      0 10px 6px rgba(0,0,0,0.23),
+      0 0 10px #222 inset;
+    box-shadow:
+      0 10px 6px rgba(0,0,0,0.16),
+      0 10px 6px rgba(0,0,0,0.23),
+      0 0 10px #222 inset;
+
+    background-color: #f8fbfb;
+}
+
+.lsd {
+    height: 120px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+
+    border: 1px solid #bbb;
+    border-radius: 2px;
+
+    -webkit-box-shadow: inset 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+
+    color: #393672;
+}
+
+.lsd .history {
+    padding: 5px;
+    flex-basis: 30%;
+    font-size: 1.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    direction: rtl;
+    background-color: #b3c3d2;
+    text-shadow: 1px 2px #7799c3;
+}
+
+.lsd .history span {
+    direction: ltr;
+    unicode-bidi: plaintext;
+}
+
+.lsd .display {
+    padding: 5px;
+    flex-basis: 70%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #7fb3c6;
+    text-shadow: 1px 2px #558ABB;
+}
+
+.lsd .display .state {
+    padding-top: 1px;
+    font-size: 1.2rem;
+}
+
+.lsd .display .digits {
+    flex-grow: 1;
+    font-size: 3.7rem;
+    direction: ltr;
+    unicode-bidi: plaintext;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.controls * {
+    width: 88px;
+    padding: 7px 10px;
+    position: relative;
+    top: -3px;
+
+    text-align: center;
+    font-size: 32px;
+    font-weight: normal;
+
+    cursor: pointer;
+    transform: translateY(0px);
+    border-radius: 10px;
+
+    text-shadow: 1px 1px 0 rgba(0,0,0,.3);
+
+    transition: 150ms all;
+    -webkit-transition: 150ms all;
+    -moz-transition: 150ms all;
+    -o-transition: 150ms all;
+    -ms-transition: 150ms all;
+}
+
+.controls :active {
+    transform: translateY(3px);
+}
+
+.controls .operator {
+    border: 1px solid #8b8787;
+    box-shadow:
+        inset 0 30px 30px -15px rgba(255,255,255,.1),
+        inset 0 0 0 1px rgba(255,255,255,.3),
+        inset 0 1px 20px rgba(0,0,0,0),
+        0 3px 0 #8f9196,
+        0 3px 2px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.1),
+        0 10px 20px rgba(0,0,0,.1);
+    background: #bebec6;
+    color: #3d3c3c;
+}
+
+.controls .operator:active {
+    box-shadow:
+        inset 0 16px 2px -15px rgba(0,0,0,0),
+        inset 0 0 0 1px rgba(255,255,255,.15),
+        inset 0 1px 20px rgba(0,0,0,.1),
+        0 0 0 #c6b9b8,
+        0 0 0 2px rgba(255,255,255,.5),
+        0 0 0 rgba(0,0,0,0),
+        0 0 0 rgba(0,0,0,0);
+}
+.controls .operator:hover {
+    background: #ccccd4;
+}
+
+.controls .digit {
+    border: 1px solid #a2a2a2;
+    box-shadow:
+        inset 0 30px 30px -15px rgba(255,255,255,.1),
+        inset 0 0 0 1px rgba(255,255,255,.3),
+        inset 0 1px 20px rgba(0,0,0,0),
+        0 3px 0 #aaa9a9,
+        0 3px 2px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.1),
+        0 10px 20px rgba(0,0,0,.1);
+    background: #d9d7d7;
+    color: #3d3c3c;
+}
+
+.controls .digit:active {
+    box-shadow:
+        inset 0 16px 2px -15px rgba(0,0,0,0),
+        inset 0 0 0 1px rgba(255,255,255,.15),
+        inset 0 1px 20px rgba(0,0,0,.1),
+        0 0 0 #f4ebea,
+        0 0 0 2px rgba(255,255,255,.5),
+        0 0 0 rgba(0,0,0,0),
+        0 0 0 rgba(0,0,0,0);
+}
+
+.controls .digit:hover {
+    background-color: #dedede;
+}
+
+.controls .power {
+    border: 1px solid #be4b34;
+    box-shadow:
+        inset 0 30px 30px -15px rgba(255,255,255,.1),
+        inset 0 0 0 1px rgba(255,255,255,.3),
+        inset 0 1px 20px rgba(0,0,0,0),
+        0 3px 0 #9b2c12,
+        0 3px 2px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.1),
+        0 10px 20px rgba(0,0,0,.1);
+    background: #d84a2f;
+    color: #e6e6e6;
+}
+
+.controls .power:active {
+    box-shadow:
+        inset 0 16px 2px -15px rgba(0,0,0,0),
+        inset 0 0 0 1px rgba(255,255,255,.15),
+        inset 0 1px 20px rgba(0,0,0,.1),
+        0 0 0 #e53a14,
+        0 0 0 2px rgba(255,255,255,.5),
+        0 0 0 rgba(0,0,0,0),
+        0 0 0 rgba(0,0,0,0);
+}
+
+.controls .power:hover {
+    background: #de6047;
+}
+
+.controls .memory {
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #3d3c3c;
+    box-shadow:
+        inset 0 30px 30px -15px rgba(255,255,255,.1),
+        inset 0 0 0 1px rgba(255,255,255,.3),
+        inset 0 1px 20px rgba(0,0,0,0),
+        0 3px 0 #606060,
+        0 3px 2px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.1),
+        0 10px 20px rgba(0,0,0,.1);
+    background: #3d3c3c;
+    color: #d9d7d7;
+}
+
+.controls .memory:active {
+    box-shadow:
+        inset 0 16px 2px -15px rgba(0,0,0,0),
+        inset 0 0 0 1px rgba(255,255,255,.15),
+        inset 0 1px 20px rgba(0,0,0,.1),
+        0 0 0 #f4ebea,
+        0 0 0 2px rgba(255,255,255,.5),
+        0 0 0 rgba(0,0,0,0),
+        0 0 0 rgba(0,0,0,0);
+}
+
+.controls .memory:hover {
+    background: #646363;
+}
