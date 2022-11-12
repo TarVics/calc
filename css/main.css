@@ -129,6 +129,7 @@ body {
     -ms-transition: 150ms all;
 }
 
+.controls .active,
 .controls :active {
     transform: translateY(3px);
 }
@@ -147,6 +148,7 @@ body {
     color: #3d3c3c;
 }
 
+.controls .operator.active,
 .controls .operator:active {
     box-shadow:
         inset 0 16px 2px -15px rgba(0,0,0,0),
@@ -175,6 +177,7 @@ body {
     color: #3d3c3c;
 }
 
+.controls .digit.active,
 .controls .digit:active {
     box-shadow:
         inset 0 16px 2px -15px rgba(0,0,0,0),
@@ -204,6 +207,7 @@ body {
     color: #e6e6e6;
 }
 
+.controls .power.active,
 .controls .power:active {
     box-shadow:
         inset 0 16px 2px -15px rgba(0,0,0,0),
@@ -235,6 +239,7 @@ body {
     color: #d9d7d7;
 }
 
+.controls .memory.active,
 .controls .memory:active {
     box-shadow:
         inset 0 16px 2px -15px rgba(0,0,0,0),

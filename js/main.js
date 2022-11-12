@@ -69,8 +69,13 @@ class Calculator {
      * @param {HTMLElement} root Батьківський елемент, на якому створюється калькулятор
      */
     #init(root) {
-        const makeBtn = (className, caption, callback) => {
-            return makeTag({className, innerHTML: caption}, el => el.onclick = callback.bind(this));
+        const makeBtn = (className, caption, callback, keys) => {
+            return makeTag({className, innerHTML: caption}, el => {
+                el.onclick = callback.bind(this);
+                if (this.keyMap) {
+                    this.keyMap.push({ keys, element: el })
+                }
+            });
         }
 
         const calculator = makeTag({className: "calculator"},
@@ -84,37 +89,59 @@ class Calculator {
                 )
             ),
             makeTag({className: "controls"},
-                makeBtn("memory", "MC", this.fnMem),
-                makeBtn("memory", "MR", this.fnMem),
-                makeBtn("memory", "M+", this.fnMem),
-                makeBtn("memory", "M-", this.fnMem),
+                makeBtn("memory", "MC", this.fnMem, {altKey: true, code: 'KeyC'}),
+                makeBtn("memory", "MR", this.fnMem, {altKey: true, code: 'KeyR'}),
+                makeBtn("memory", "M+", this.fnMem, {altKey: true, key: '+'}),
+                makeBtn("memory", "M-", this.fnMem, {altKey: true, key: '-'}),
 
-                makeBtn("power", "C", this.fnClear),
-                makeBtn("operator", "√", this.fnSqrt),
-                makeBtn("operator", "x²", this.fnSqr),
-                makeBtn("operator", "÷", this.fnCalc),
+                makeBtn("power", "C", this.fnClear, {code: 'KeyC'}),
+                makeBtn("operator", "√", this.fnSqrt, {altKey: true, key: '/'}),
+                makeBtn("operator", "x²", this.fnSqr, {altKey: true, key: '*'}),
+                makeBtn("operator", "÷", this.fnCalc, {altKey: false, key: '/'}),
 
-                makeBtn("digit", "7", this.fnDigit),
-                makeBtn("digit", "8", this.fnDigit),
-                makeBtn("digit", "9", this.fnDigit),
-                makeBtn("operator", "×", this.fnCalc),
+                makeBtn("digit", "7", this.fnDigit, {key: '7'}),
+                makeBtn("digit", "8", this.fnDigit, {key: '8'}),
+                makeBtn("digit", "9", this.fnDigit, {key: '9'}),
+                makeBtn("operator", "×", this.fnCalc, {altKey: false, key: '*'}),
 
-                makeBtn("digit", "4", this.fnDigit),
-                makeBtn("digit", "5", this.fnDigit),
-                makeBtn("digit", "6", this.fnDigit),
-                makeBtn("operator", "−", this.fnCalc),
+                makeBtn("digit", "4", this.fnDigit, {key: '4'}),
+                makeBtn("digit", "5", this.fnDigit, {key: '5'}),
+                makeBtn("digit", "6", this.fnDigit, {key: '6'}),
+                makeBtn("operator", "−", this.fnCalc, {altKey: false, key: '-'}),
 
-                makeBtn("digit", "1", this.fnDigit),
-                makeBtn("digit", "2", this.fnDigit),
-                makeBtn("digit", "3", this.fnDigit),
-                makeBtn("operator", "+", this.fnCalc),
+                makeBtn("digit", "1", this.fnDigit, {key: '1'}),
+                makeBtn("digit", "2", this.fnDigit, {key: '2'}),
+                makeBtn("digit", "3", this.fnDigit, {key: '3'}),
+                makeBtn("operator", "+", this.fnCalc, {altKey: false, key: '+'}),
 
-                makeBtn("digit", "±", this.fnSign),
-                makeBtn("digit", "0", this.fnDigit),
-                makeBtn("digit", ".", this.fnPoint),
-                makeBtn("operator", "=", this.fnCalc)
+                makeBtn("digit", "±", this.fnSign, {key: '!'}),
+                makeBtn("digit", "0", this.fnDigit, {key: '0'}),
+                makeBtn("digit", ".", this.fnPoint, {key: '.'}),
+                makeBtn("operator", "=", this.fnCalc, {key: 'Enter'})
             )
         )
+
+        if (this.keyMap) {
+            document.addEventListener('keydown', e => {
+                const map = this.keyMap.find(map => {
+                    const {key, altKey, code} = map.keys;
+                    return (!key || e.key === key) && (!altKey || e.altKey === altKey) && (!code || e.code === code);
+                });
+
+                if (map) {
+                    map.element.dispatchEvent( new MouseEvent( 'mousedown' ) );
+                    map.element.classList.add('active');
+                    setTimeout(() => {
+                        map.element.dispatchEvent( new MouseEvent( 'mouseup' ) );
+                        map.element.dispatchEvent( new MouseEvent( 'click' ) );
+                        map.element.classList.remove('active');
+                    }, 100);
+                    e.preventDefault();
+                }
+            })
+        }
+
+
         root.appendChild(calculator);
     }
 
@@ -305,7 +332,23 @@ class Calculator {
         }
     }
 
-    constructor(root = document.body) {
+    /**
+     * Конструктор об'єкта типу Calculator
+     * @param {HTMLElement} root Батьківський елемент, на якому створюється калькулятор
+     * @param {boolean} useKeys Використовувати події клавіатури для активації клавіш калькулятора.
+     *
+     * Наразі, активна наступна розкладка клавіатури:
+     *
+     *   [MC] => Alt + "C", [MR] => Alt + "R", [M+] => Alt + "+", [M-] => Alt + "-",
+     *
+     *   [C] => "C", [√] => Alt + "/", [x²] => Alt + "*", [÷] => "/", [×] => "*",
+     *   [−] => "-", [+] => "+", [±] => "!", [.] => ".", [=] => "Enter"
+     *
+     *   [0] => "0", [1] => "1", [2] => "2", [3] => "3", [4] => "4",
+     *   [5] => "5", [6] => "6", [7] => "7", [8] => "8", [9] => "9",
+     */
+    constructor(root = document.body, useKeys = false) {
+        if (useKeys) this.keyMap = [];
         this.#init(root);
         this.fnClear();
         this.fnMem(null);
@@ -374,5 +417,5 @@ class Calculator {
 }
 
 const root = document.getElementById('root');
-const calculator = new Calculator(root);
+const calculator = new Calculator(root, true);
 
