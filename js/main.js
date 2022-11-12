@@ -180,7 +180,7 @@ class Calculator {
                 case '×':
                     this.setValue(this.value * value);
                     break;
-                case '-':
+                case '−':
                     this.setValue(this.value - value);
                     break;
                 case '+':
