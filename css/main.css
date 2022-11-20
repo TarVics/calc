@@ -71,7 +71,7 @@ body {
     text-overflow: ellipsis;
     direction: rtl;
     background-color: #b3c3d2;
-    text-shadow: 1px 2px #7799c3;
+    text-shadow: 0.0625em 0.0625em #7799c3;
 }
 
 .lsd .history span {
@@ -85,7 +85,7 @@ body {
     display: flex;
     justify-content: space-between;
     background-color: #7fb3c6;
-    text-shadow: 1px 2px #558ABB;
+    text-shadow: 0.0625em 0.125em #558ABB;
 }
 
 .lsd .display .state {
