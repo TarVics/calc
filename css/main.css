@@ -1,8 +1,8 @@
 body {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
     background-color: #7799c3;
+    box-sizing: border-box;
 }
 
 #root {
@@ -13,16 +13,16 @@ body {
 }
 
 .calculator {
-    width: 500px;
-    padding: 20px;
+    width: 31.25em;
+    padding: 1.25em;
 
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.2em;
 
     font-family: 'Source Sans Pro', sans-serif;
-    letter-spacing: 5px;
-    font-size: 1.8rem;
+    letter-spacing: 0.3125em;
+    font-size: 1rem;
 
     -moz-user-select: none;
     -ms-user-select: none;
@@ -43,9 +43,9 @@ body {
 }
 
 .lsd {
-    height: 120px;
-    padding: 5px;
-    margin-bottom: 10px;
+    height: 7.5em;
+    padding: 0.3125em;
+    margin-bottom: 0.625em;
 
     display: flex;
     flex-direction: column;
@@ -61,9 +61,11 @@ body {
 }
 
 .lsd .history {
-    padding: 5px;
+    padding: 0.3125em;
     flex-basis: 30%;
-    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -78,7 +80,7 @@ body {
 }
 
 .lsd .display {
-    padding: 5px;
+    padding: 0.3125em;
     flex-basis: 70%;
     display: flex;
     justify-content: space-between;
@@ -88,12 +90,15 @@ body {
 
 .lsd .display .state {
     padding-top: 1px;
-    font-size: 1.2rem;
+    font-size: 1.2em;
 }
 
 .lsd .display .digits {
     flex-grow: 1;
-    font-size: 3.7rem;
+    font-size: 3.7em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     direction: ltr;
     unicode-bidi: plaintext;
 }
@@ -103,17 +108,21 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    column-gap: 1em;
+    row-gap: 1.5em;
 }
 
 .controls * {
-    width: 88px;
-    padding: 7px 10px;
+    height: 1.8em;
+    flex-basis: calc(25% - 0.5em);
     position: relative;
     top: -3px;
 
-    text-align: center;
-    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2em;
     font-weight: normal;
 
     cursor: pointer;
@@ -122,11 +131,11 @@ body {
 
     text-shadow: 1px 1px 0 rgba(0,0,0,.3);
 
-    transition: 150ms all;
-    -webkit-transition: 150ms all;
-    -moz-transition: 150ms all;
-    -o-transition: 150ms all;
-    -ms-transition: 150ms all;
+    transition: 100ms all;
+    -webkit-transition: 100ms all;
+    -moz-transition: 100ms all;
+    -o-transition: 100ms all;
+    -ms-transition: 100ms all;
 }
 
 .controls .active,
@@ -224,8 +233,7 @@ body {
 }
 
 .controls .memory {
-    height: 40px;
-    padding: 0 10px;
+    height: 1.2em;
     border: 1px solid #3d3c3c;
     box-shadow:
         inset 0 30px 30px -15px rgba(255,255,255,.1),
@@ -253,4 +261,22 @@ body {
 
 .controls .memory:hover {
     background: #646363;
+}
+
+@media screen and (max-width: 540px) {
+    .calculator {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 486px) {
+    .calculator {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 432px) {
+    .calculator {
+        font-size: 0.7rem;
+    }
 }
